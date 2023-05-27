@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhvywqli0xpt"]
+
+[ext_resource type="Texture2D" uid="uid://b3fbjpiv4j0lk" path="res://GameAssets/Player/sprites/car.png" id="1_3pfup"]
+[ext_resource type="Script" path="res://GameAssets/Player/player_car.gd" id="1_w4sd8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_01qtr"]
+radius = 30.0
+height = 126.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_w4sd8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_01qtr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3pfup")
+
+[node name="Gun" type="Node2D" parent="."]
