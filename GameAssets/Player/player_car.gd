@@ -14,15 +14,24 @@ var engine_power = 800
 # for surface friction, like driving on sand
 var friction = -0.9
 # drag will be based on square of velocity, so it will be more noticeable at higher speeds, small value
-var drag = -0.001
+var drag = -0.0015
 
-var steer_direction
+var steer_angle
 
 var acceleration = Vector2.ZERO
 # braking - decceleration
 var braking = -450
 # how fast you can reverse
 var max_speed_reverse = 250
+
+# REGION drift / slide
+# speed where we start to drift, traction loss
+var slip_speed = 400
+# high speed traction
+var traction_fast = 0.1
+# low speed traction
+var traction_slow = 0.7
+# END REGION
 
 
 func _physics_process(delta):
@@ -42,25 +51,22 @@ func apply_friction():
 	
 	# friction is negative, force in the opposite direction of velocity
 	var friction_force = velocity * friction
-	# get proportional to the velocity squared
-	var drag_force = velocity * velocity.length_squared() * drag
+	var drag_force = velocity * velocity.length() * drag
+	# if we are going slow, increase the friction, no creep forward
+	if(velocity.length() < 100):
+		friction_force *= 3
 	# apply the forces
 	acceleration += drag_force + friction_force
 
-	# apply friction to velocity
-	velocity *= friction
-	# apply drag to velocity
-	velocity -= velocity * velocity.length_squared() * drag
-
 func get_input():
 	# turn is zero with no directional input
-	var turn = 0
+	var turn_dir = 0
 	if Input.is_action_pressed("steer_right"):
-		turn += 1
+		turn_dir += 1
 	if Input.is_action_pressed("steer_left"):
-		turn -= 1
+		turn_dir -= 1
 	# apply the steer direction
-	steer_direction = turn * deg_to_rad(steering_angle_max)
+	steer_angle = turn_dir * deg_to_rad(steering_angle_max)
 
 	if Input.is_action_pressed("accelerate"):
 		acceleration = transform.x * engine_power
@@ -75,17 +81,20 @@ func calculate_steering(delta):
 
 	# apply velocity to the rear wheel, and apply the rotated velocity to the front wheel
 	rear_wheel += velocity * delta
-	front_wheel += velocity.rotated(steer_direction) * delta
+	front_wheel += velocity.rotated(steer_angle) * delta
 
 	# apply new facing direction using vector subtraction of the wheels, then get the angle
 	var new_heading = (front_wheel - rear_wheel).normalized()
+	var traction = traction_slow
+	if velocity.length() > slip_speed:
+		traction = traction_fast
 	# handle braking becomes reversing
 	var d = new_heading.dot(velocity.normalized())
 	if d > 0:
 		# forward
-		velocity = new_heading * velocity.length()
+		velocity = velocity.lerp(new_heading * velocity.length(), traction)
 	if d < 0:
 		# reverse
-		velocity = -new_heading
+		velocity = -new_heading * min(velocity.length(), max_speed_reverse)
 	rotation = new_heading.angle()
 
