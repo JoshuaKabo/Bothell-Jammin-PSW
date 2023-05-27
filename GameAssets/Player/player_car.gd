@@ -16,7 +16,7 @@ var friction = -0.9
 # drag will be based on square of velocity, so it will be more noticeable at higher speeds, small value
 var drag = -0.0015
 
-var steer_angle
+var steer_angle = 0
 
 var acceleration = Vector2.ZERO
 # braking - decceleration
@@ -76,8 +76,8 @@ func get_input():
 
 func calculate_steering(delta):
 	# offset the rear and front wheels from the center of the car
-	var rear_wheel = position - transform.y * wheel_base / 2.0
-	var front_wheel = position + transform.y * wheel_base / 2.0
+	var rear_wheel = position - transform.x * wheel_base / 2.0
+	var front_wheel = position + transform.x * wheel_base / 2.0
 
 	# apply velocity to the rear wheel, and apply the rotated velocity to the front wheel
 	rear_wheel += velocity * delta
@@ -97,4 +97,3 @@ func calculate_steering(delta):
 		# reverse
 		velocity = -new_heading * min(velocity.length(), max_speed_reverse)
 	rotation = new_heading.angle()
-

@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=5 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
+[ext_resource type="Texture2D" uid="uid://dufglseesb14k" path="res://GameAssets/TileMap/Sprites/Standin_BG.png" id="2_n0tj3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n2bgt"]
+texture = ExtResource("2_n0tj3")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7lqbv"]
+tile_size = Vector2i(500, 500)
+sources/0 = SubResource("TileSetAtlasSource_n2bgt")
 
 [node name="MainScene" type="Node2D"]
 
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_7lqbv")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, -65536, 0, 0, -131072, 0, 0, 65536, 0, 0)
+
 [node name="Player" parent="." instance=ExtResource("1_bbhq1")]
-position = Vector2(159, 73)
+position = Vector2(284, 814)
