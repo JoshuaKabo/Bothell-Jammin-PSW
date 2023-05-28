@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=9 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="Texture2D" uid="uid://vm86phbvmp4a" path="res://GameAssets/TileMap/Sprites/tilelayout.png" id="2_bdr2c"]
 [ext_resource type="Texture2D" uid="uid://c45kh4h80ecky" path="res://GameAssets/TileMap/Sprites/boundaryline.png" id="3_mipe3"]
+[ext_resource type="AudioStream" uid="uid://bhd3xhpye22kw" path="res://GameAssets/Sounds/recordings_edited/ambience.ogg" id="4_8o8pc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw1xi"]
 texture = ExtResource("3_mipe3")
@@ -279,3 +280,5 @@ position = Vector2(248, 1650)
 rotation = -1.5708
 
 [node name="audio_ambient" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8o8pc")
+autoplay = true

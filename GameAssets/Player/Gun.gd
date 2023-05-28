@@ -6,6 +6,7 @@ var fire_rate_timer
 var audio_player_camera_effected
 @export var fire_rate = 10.0
 @export var fire_volume_db = 0.0
+var cease_fire_volume_db = 12.0
 @export var sound_start_fire: AudioStream
 @export var sound_fire_loop: AudioStream
 @export var sound_cease_fire: AudioStream
@@ -53,6 +54,7 @@ func _process(_delta):
 	# Set the node's global rotation to the calculated angle - global for not being messed up by car rotation
 	global_rotation = angle
 	if Input.is_action_just_pressed("fire"):
+		audio_player_camera_effected.volume_db = fire_volume_db
 		audio_player_camera_effected.stream = sound_start_fire
 		audio_player_camera_effected.play()
 		# audio_player_camera_effected.stream = sound_fire_loop
@@ -66,6 +68,7 @@ func _process(_delta):
 	if Input.is_action_just_released("fire"):
 		audio_player_camera_effected.stop()
 		# play the ceasefire sound effect
+		audio_player_camera_effected.volume_db = cease_fire_volume_db
 		audio_player_camera_effected.stream = sound_cease_fire
 		audio_player_camera_effected.play()
 
