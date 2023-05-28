@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8w5k5eo65kx8"]
+
+[ext_resource type="Texture2D" uid="uid://dba0m2byr2grh" path="res://GameAssets/Items/Sprites/ferry.png" id="1_hdoug"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u71b7"]
+radius = 54.0
+height = 154.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hdoug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_u71b7")
