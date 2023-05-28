@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 # Notes:
-# Modification of Godot Recipes: Car Steering - https://www.youtube.com/watch?v=mJ1ZfGDTMCY&t=193s
+# Modification of the following:
+# Godot Recipes: Car Steering - https://www.youtube.com/watch?v=mJ1ZfGDTMCY&t=193s
 # This car follows a 2 wheel model, where the front wheel steers, and the back wheel drives forward / backward.
 
 # how far apart the steer and drive wheels are
@@ -89,11 +90,11 @@ func calculate_steering(delta):
 	if velocity.length() > slip_speed:
 		traction = traction_fast
 	# handle braking becomes reversing
-	var d = new_heading.dot(velocity.normalized())
-	if d > 0:
+	var move_dir = new_heading.dot(velocity.normalized())
+	if move_dir > 0:
 		# forward
 		velocity = velocity.lerp(new_heading * velocity.length(), traction)
-	if d < 0:
+	if move_dir < 0:
 		# reverse
 		velocity = -new_heading * min(velocity.length(), max_speed_reverse)
 	rotation = new_heading.angle()
