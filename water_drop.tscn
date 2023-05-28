@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3msq48df8h8y"]
+
+[ext_resource type="Script" path="res://GameAssets/Items/water_drop.gd" id="1_l3fti"]
+[ext_resource type="Texture2D" uid="uid://5knop0bluh1n" path="res://GameAssets/Items/Sprites/water_drop.png" id="2_4385l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vbdeh"]
+radius = 8.0
+
+[node name="water_drop" type="CharacterBody2D"]
+script = ExtResource("1_l3fti")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4385l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vbdeh")
+
+[node name="despawn_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
