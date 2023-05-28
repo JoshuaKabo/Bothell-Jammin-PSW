@@ -5,32 +5,32 @@ extends CharacterBody2D
 # This car follows a 2 wheel model, where the front wheel steers, and the back wheel drives forward / backward.
 
 # how far apart the steer and drive wheels are
-var wheel_base = 70
+@export var wheel_base = 70
 # how far the front wheel can turn in degrees
-var steering_angle_max = 15
+@export var steering_angle_max = 15
 # for how quickly the car can accelerate
-var engine_power = 800
+@export var engine_power = 800
 
 # for surface friction, like driving on sand
-var friction = -0.9
+@export var friction = -0.9 # TODO: add different friction for different surfaces
 # drag will be based on square of velocity, so it will be more noticeable at higher speeds, small value
-var drag = -0.0015
+@export var drag = -0.0015
 
-var steer_angle = 0
+@export var steer_angle = 0
 
-var acceleration = Vector2.ZERO
+@export var acceleration = Vector2.ZERO
 # braking - decceleration
-var braking = -450
+@export var braking = -450
 # how fast you can reverse
-var max_speed_reverse = 250
+@export var max_speed_reverse = 250
 
 # REGION drift / slide
 # speed where we start to drift, traction loss
-var slip_speed = 400
+@export var slip_speed = 400
 # high speed traction
-var traction_fast = 0.1
+@export var traction_fast = 0.1
 # low speed traction
-var traction_slow = 0.7
+@export var traction_slow = 0.7
 # END REGION
 
 

@@ -11,7 +11,6 @@ var despawn_timer
 func _ready():
 	despawn_timer = get_node("despawn_timer")
 	despawn_timer.start()
-	# timer = 
 
 func _physics_process(_delta):
 	# apply the valocity as supplied from the start
