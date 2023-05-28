@@ -277,3 +277,5 @@ layer_0/tile_data = PackedInt32Array(1310728, 0, 0, 1310727, 65536, 0, 1245190, 
 [node name="Player" parent="." instance=ExtResource("1_bbhq1")]
 position = Vector2(248, 1650)
 rotation = -1.5708
+
+[node name="audio_ambient" type="AudioStreamPlayer" parent="."]
