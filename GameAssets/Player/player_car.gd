@@ -34,6 +34,20 @@ extends CharacterBody2D
 @export var traction_slow = 0.7
 # END REGION
 
+@export var sound_start_car: AudioStream
+@export var sound_car_loop: AudioStream
+@export var sound_car_reverse: AudioStream
+@export var sound_car_brake: AudioStream
+
+var car_audio: AudioStreamPlayer2D
+
+@export var car_volume_db = 0.0
+var reverse_volume_db = -6.0
+
+
+func _ready():
+	car_audio = get_node("CarAudio")
+	car_audio.volume_db = car_volume_db
 
 func _physics_process(delta):
 	acceleration = Vector2.ZERO
@@ -69,10 +83,27 @@ func get_input():
 	# apply the steer direction
 	steer_angle = turn_dir * deg_to_rad(steering_angle_max)
 
+	if Input.is_action_just_pressed("accelerate"):
+		car_audio.volume_db = car_volume_db
+		car_audio.stream = sound_start_car
+		car_audio.play()
+	if Input.is_action_just_released("accelerate"):
+		car_audio.stop()
+
+	if Input.is_action_just_pressed("brake") and velocity.length() > 0:
+		car_audio.volume_db = car_volume_db
+		car_audio.stop()
+
+		print("break????")
+		car_audio.stream = sound_car_brake
+		car_audio.play()
+
+
 	if Input.is_action_pressed("accelerate"):
 		acceleration = transform.x * engine_power
 	if Input.is_action_pressed("brake"):
 		acceleration = transform.x * braking
+
 
 
 func calculate_steering(delta):
@@ -97,4 +128,19 @@ func calculate_steering(delta):
 	if move_dir < 0:
 		# reverse
 		velocity = -new_heading * min(velocity.length(), max_speed_reverse)
+		car_audio.volume_db = reverse_volume_db
+
+		if not car_audio.is_playing():
+			car_audio.volume_db = reverse_volume_db
+			car_audio.stream = sound_car_loop
+			car_audio.play()
+
 	rotation = new_heading.angle()
+
+
+func _on_car_audio_finished():
+	if(Input.is_action_pressed("accelerate")):
+		car_audio.volume_db = car_volume_db
+		car_audio.stream = sound_car_loop
+		car_audio.play()
+	# $CarAudio.play()

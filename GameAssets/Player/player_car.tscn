@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhvywqli0xpt"]
+[gd_scene load_steps=12 format=3 uid="uid://bhvywqli0xpt"]
 
 [ext_resource type="Texture2D" uid="uid://b3fbjpiv4j0lk" path="res://GameAssets/Player/sprites/car.png" id="1_3pfup"]
 [ext_resource type="Script" path="res://GameAssets/Player/player_car.gd" id="1_w4sd8"]
+[ext_resource type="AudioStream" uid="uid://b7h31o54h8kkl" path="res://GameAssets/Sounds/recordings_edited/carstart.ogg" id="2_2a7iw"]
 [ext_resource type="Texture2D" uid="uid://cy514vf7tu5qc" path="res://GameAssets/Player/sprites/gun.png" id="3_fdbmc"]
 [ext_resource type="Script" path="res://GameAssets/Player/Gun.gd" id="3_sfxyj"]
+[ext_resource type="AudioStream" uid="uid://c1mc8dmiivfs" path="res://GameAssets/Sounds/recordings_edited/carloop.ogg" id="3_un60l"]
 [ext_resource type="AudioStream" uid="uid://cf3lefg8oirtq" path="res://GameAssets/Sounds/recordings_edited/Guninit.wav" id="4_i6ixc"]
+[ext_resource type="AudioStream" uid="uid://dnwrfgkhnln74" path="res://GameAssets/Sounds/recordings_edited/Brake.ogg" id="4_y0rfo"]
 [ext_resource type="AudioStream" uid="uid://es5ebeqnd4c" path="res://GameAssets/Sounds/recordings_edited/gunloop.wav" id="5_efsci"]
 [ext_resource type="AudioStream" uid="uid://dh0tllkmrwmrg" path="res://GameAssets/Sounds/recordings_edited/ceasefire_short.ogg" id="6_uacej"]
 
@@ -14,6 +17,9 @@ height = 128.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_w4sd8")
+sound_start_car = ExtResource("2_2a7iw")
+sound_car_loop = ExtResource("3_un60l")
+sound_car_brake = ExtResource("4_y0rfo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -44,6 +50,9 @@ position = Vector2(39, 0)
 wait_time = 0.1
 one_shot = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Gun"]
+[node name="GunAudio" type="AudioStreamPlayer2D" parent="Gun"]
 
-[connection signal="finished" from="Gun/AudioStreamPlayer2D" to="Gun" method="_on_audio_stream_player_2d_finished"]
+[node name="CarAudio" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="finished" from="Gun/GunAudio" to="Gun" method="_on_audio_stream_player_2d_finished"]
+[connection signal="finished" from="CarAudio" to="." method="_on_car_audio_finished"]

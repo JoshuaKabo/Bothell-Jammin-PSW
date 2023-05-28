@@ -14,7 +14,7 @@ var cease_fire_volume_db = 12.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	audio_player_camera_effected = get_node("AudioStreamPlayer2D")
+	audio_player_camera_effected = get_node("GunAudio")
 	audio_player_camera_effected.volume_db = fire_volume_db
 	fire_point = get_node("firepoint")
 	fire_rate_timer = get_node("firetimer")
