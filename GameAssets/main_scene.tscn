@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=7 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="Texture2D" uid="uid://dufglseesb14k" path="res://GameAssets/TileMap/Sprites/Standin_BG.png" id="2_n0tj3"]
+[ext_resource type="Script" path="res://GameAssets/npc.gd" id="3_mpdtd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n2bgt"]
 texture = ExtResource("2_n0tj3")
@@ -11,6 +12,8 @@ texture_region_size = Vector2i(500, 500)
 [sub_resource type="TileSet" id="TileSet_7lqbv"]
 tile_size = Vector2i(500, 500)
 sources/0 = SubResource("TileSetAtlasSource_n2bgt")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r0545"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -23,7 +26,14 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, -65536, 0, 0, -131072, 0, 0, 65536
 position = Vector2(284, 814)
 
 [node name="NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("3_mpdtd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
 
-[node name="Sprite2D" type="Sprite2D" parent="NPC"]
+[node name="RigidBody2D" type="RigidBody2D" parent="NPC"]
+gravity_scale = 0.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
+sprite_frames = SubResource("SpriteFrames_r0545")
+
+[node name="Area2D" type="Area2D" parent="NPC"]
