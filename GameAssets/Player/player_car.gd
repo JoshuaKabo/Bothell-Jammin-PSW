@@ -41,6 +41,8 @@ extends CharacterBody2D
 
 var car_audio: AudioStreamPlayer2D
 
+var on_ferry = false
+
 @export var car_volume_db = 0.0
 var reverse_volume_db = -6.0
 
@@ -50,13 +52,18 @@ func _ready():
 	car_audio.volume_db = car_volume_db
 
 func _physics_process(delta):
-	acceleration = Vector2.ZERO
-	get_input()
-	apply_friction()
-	calculate_steering(delta)
+	if not on_ferry:
+		acceleration = Vector2.ZERO
+		get_input()
+		apply_friction()
+		calculate_steering(delta)
 
-	velocity += acceleration * delta
-	# apply movement from velocity TODO: unsure if this still applies
+		velocity += acceleration * delta
+	# ferry takes over
+	else:
+		velocity = Vector2.ZERO
+		acceleration = Vector2.ZERO
+
 	move_and_slide()
 
 func apply_friction():
@@ -94,7 +101,6 @@ func get_input():
 		car_audio.volume_db = car_volume_db
 		car_audio.stop()
 
-		print("break????")
 		car_audio.stream = sound_car_brake
 		car_audio.play()
 
@@ -144,3 +150,7 @@ func _on_car_audio_finished():
 		car_audio.stream = sound_car_loop
 		car_audio.play()
 	# $CarAudio.play()
+
+func board_ferry():
+	# 
+	pass

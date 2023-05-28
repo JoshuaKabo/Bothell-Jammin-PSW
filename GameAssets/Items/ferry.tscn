@@ -1,16 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8w5k5eo65kx8"]
+[gd_scene load_steps=4 format=3 uid="uid://c8w5k5eo65kx8"]
 
+[ext_resource type="Script" path="res://GameAssets/Items/ferry.gd" id="1_6gdgx"]
 [ext_resource type="Texture2D" uid="uid://dba0m2byr2grh" path="res://GameAssets/Items/Sprites/ferry.png" id="1_hdoug"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u71b7"]
 radius = 54.0
 height = 154.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="ferry" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_6gdgx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_hdoug")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="FerryAudio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_u71b7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
