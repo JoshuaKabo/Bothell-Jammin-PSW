@@ -7,6 +7,12 @@ var audio_player
 @export var sound_ferry_loop: AudioStream
 @export var sound_ferry_stop: AudioStream
 
+@export var travel_time = 12.0
+
+var travel_timer: Timer
+
+var initial_pos: Vector2
+
 @export var objective: Node2D
 var objective_pos_tolerance = 10.0
 
@@ -15,6 +21,7 @@ var player_car = null
 
 func _ready():
 	audio_player = get_node("FerryAudio")
+	travel_timer = get_node("TravelTimer")
 
 func _physics_process(_delta):
 	# if is_traveling and is not within objective_pos_tolerance of objective
@@ -22,25 +29,18 @@ func _physics_process(_delta):
 	if is_traveling:
 		if objective:
 			var objective_pos = objective.get_global_position()
-			var distance = objective_pos.distance_to(get_global_position())
-			if distance > objective_pos_tolerance:
-				player_car.set_global_position(get_global_position())
-				var direction = (objective_pos - get_global_position()).normalized()
-				velocity = direction * SPEED
-				move_and_slide()
-			else:
-				objective_reached()
-		else:
-			is_traveling = false
-			audio_player.stop()
-			audio_player.stream = sound_ferry_stop
-			audio_player.play()
 
-	move_and_slide()
+			var position_step = lerp(objective_pos, initial_pos, travel_timer.time_left / travel_time)
+
+			global_position = position_step
+			player_car.set_global_position(global_position)
+
+
+	# move_and_slide()
 
 func objective_reached():
-	velocity = Vector2(0, 0)
 	is_traveling = false
+	velocity = Vector2(0, 0)
 	audio_player.stop()
 	audio_player.stream = sound_ferry_stop
 	audio_player.play()
@@ -60,8 +60,14 @@ func retrieve_player():
 func _on_area_2d_body_entered(body:Node2D):
 	# we know that the body is a player because of the collision mask
 	if objective:
+		initial_pos = get_global_position()
 		player_car = body
 		retrieve_player()
+		travel_timer.start(travel_time)
 		is_traveling = true
 		audio_player.stream = sound_ferry_start
 		audio_player.play()
+
+
+func _on_travel_timer_timeout():
+	objective_reached()
