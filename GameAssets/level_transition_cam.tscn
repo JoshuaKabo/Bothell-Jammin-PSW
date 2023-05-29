@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://usvpj4fs2l47"]
+
+[ext_resource type="Script" path="res://GameAssets/transitioncam.gd" id="1_eqapw"]
+
+[node name="Level_Transition_Cam" type="Camera2D" node_paths=PackedStringArray("zoom_timer")]
+position = Vector2(48, -2096)
+zoom = Vector2(0.08, 0.08)
+script = ExtResource("1_eqapw")
+goalzoom = 0.08
+zoom_timer = NodePath("ZoomTimer")
+
+[node name="ZoomTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ZoomTimer" to="." method="_on_zoom_timer_timeout"]

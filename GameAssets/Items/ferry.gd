@@ -7,6 +7,9 @@ var audio_player
 @export var sound_ferry_loop: AudioStream
 @export var sound_ferry_stop: AudioStream
 
+
+@export var trans_cam: Camera2D
+
 @export var travel_time = 12.0
 
 var travel_timer: Timer
@@ -67,6 +70,8 @@ func _on_area_2d_body_entered(body:Node2D):
 		is_traveling = true
 		audio_player.stream = sound_ferry_start
 		audio_player.play()
+		trans_cam.handle_transition()
+
 
 
 func _on_travel_timer_timeout():
