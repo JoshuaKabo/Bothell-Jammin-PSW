@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmcytrkeaq6s0"]
+
+[ext_resource type="Script" path="res://GameAssets/levelmanager.gd" id="1_7uypg"]
+
+[sub_resource type="SystemFont" id="SystemFont_jvt6k"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_m5tcn"]
+font = SubResource("SystemFont_jvt6k")
+font_size = 40
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Time Remaining"
+label_settings = SubResource("LabelSettings_m5tcn")
+script = ExtResource("1_7uypg")
+
+[node name="leveltimer" type="Timer" parent="."]
+one_shot = true

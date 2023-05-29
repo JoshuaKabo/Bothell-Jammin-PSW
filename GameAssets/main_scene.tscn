@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=11 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="PackedScene" uid="uid://cdsrl1kdut3ey" path="res://GameAssets/TileMap/boundary_tiles.tscn" id="1_ra2yv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c8w5k5eo65kx8" path="res://GameAssets/Items/ferry.tscn" id="5_72d2y"]
 [ext_resource type="PackedScene" uid="uid://cfgbkvim6j7xg" path="res://level_tiles_set.tscn" id="6_8lhrw"]
 [ext_resource type="PackedScene" uid="uid://usvpj4fs2l47" path="res://GameAssets/level_transition_cam.tscn" id="7_kekha"]
+[ext_resource type="PackedScene" uid="uid://bmcytrkeaq6s0" path="res://GameAssets/levelmanager.tscn" id="8_57rx7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kuyow"]
 texture = ExtResource("2_bdr2c")
@@ -144,12 +145,6 @@ texture_region_size = Vector2i(50, 50)
 tile_size = Vector2i(50, 50)
 sources/0 = SubResource("TileSetAtlasSource_kuyow")
 
-[sub_resource type="SystemFont" id="SystemFont_jvt6k"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_m5tcn"]
-font = SubResource("SystemFont_jvt6k")
-font_size = 40
-
 [node name="MainScene" type="Node2D"]
 
 [node name="l1_boundary_tiles" parent="." instance=ExtResource("1_ra2yv")]
@@ -194,8 +189,4 @@ goal_pos = NodePath("../goal")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Time Remaining"
-label_settings = SubResource("LabelSettings_m5tcn")
+[node name="Label" parent="CanvasLayer" instance=ExtResource("8_57rx7")]
