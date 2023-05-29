@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3bgn5gav7rxp"
-path="res://.godot/imported/Npc.png-4580dc0a8398b73d4b7d5ad523f7f581.ctex"
+uid="uid://ch0fdwrfuxpng"
+path="res://.godot/imported/walk_npc.png-6a0f015fd5b28b60db0e774d1cb6050f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameAssets/NPC/sprites/Npc.png"
-dest_files=["res://.godot/imported/Npc.png-4580dc0a8398b73d4b7d5ad523f7f581.ctex"]
+source_file="res://GameAssets/NPC/sprites/walk_npc.png"
+dest_files=["res://.godot/imported/walk_npc.png-6a0f015fd5b28b60db0e774d1cb6050f.ctex"]
 
 [params]
 

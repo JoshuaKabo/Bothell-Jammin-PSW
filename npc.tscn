@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd4pbsugdnxqy"]
+
+[ext_resource type="Script" path="res://GameAssets/npc.gd" id="1_6a1ya"]
+[ext_resource type="Texture2D" uid="uid://ch0fdwrfuxpng" path="res://GameAssets/NPC/sprites/walk_npc.png" id="2_amwdb"]
+[ext_resource type="Texture2D" uid="uid://0k3g58acd6ku" path="res://GameAssets/NPC/sprites/sit_npc.png" id="3_0bqph"]
+[ext_resource type="Texture2D" uid="uid://dxj2mgriu4bu4" path="res://GameAssets/NPC/sprites/flame.png" id="4_6wf3g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bo8et"]
+
+[node name="NPC" type="CharacterBody2D"]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_6a1ya")
+mobile_sprite = ExtResource("2_amwdb")
+stationary_sprite = ExtResource("3_0bqph")
+
+[node name="charactersprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_amwdb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bo8et")
+
+[node name="flamesprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_6wf3g")
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]

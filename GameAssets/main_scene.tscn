@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=12 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="PackedScene" uid="uid://cdsrl1kdut3ey" path="res://GameAssets/TileMap/boundary_tiles.tscn" id="1_ra2yv"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cfgbkvim6j7xg" path="res://level_tiles_set.tscn" id="6_8lhrw"]
 [ext_resource type="PackedScene" uid="uid://usvpj4fs2l47" path="res://GameAssets/level_transition_cam.tscn" id="7_kekha"]
 [ext_resource type="PackedScene" uid="uid://bmcytrkeaq6s0" path="res://GameAssets/levelmanager.tscn" id="8_57rx7"]
+[ext_resource type="PackedScene" uid="uid://cd4pbsugdnxqy" path="res://npc.tscn" id="9_sjfi6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kuyow"]
 texture = ExtResource("2_bdr2c")
@@ -145,8 +146,6 @@ texture_region_size = Vector2i(50, 50)
 tile_size = Vector2i(50, 50)
 sources/0 = SubResource("TileSetAtlasSource_kuyow")
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_r0545"]
-
 [node name="MainScene" type="Node2D"]
 
 [node name="l1_boundary_tiles" parent="." instance=ExtResource("1_ra2yv")]
@@ -159,7 +158,7 @@ layer_0/tile_data = PackedInt32Array(1310728, 0, 0, 1310727, 65536, 0, 1245190, 
 
 [node name="Player" parent="." instance=ExtResource("1_bbhq1")]
 z_index = 100
-position = Vector2(351, 238)
+position = Vector2(244, -4461)
 rotation = -1.5708
 
 [node name="audio_ambient" type="AudioStreamPlayer" parent="."]
@@ -192,3 +191,68 @@ goal_pos = NodePath("../goal")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" parent="CanvasLayer" instance=ExtResource("8_57rx7")]
+
+[node name="NPC7" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(-1117, -4927)
+on_fire = true
+mobile = true
+
+[node name="NPC8" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(417, -4258)
+mobile = true
+
+[node name="NPC9" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(911, -5285)
+mobile = true
+
+[node name="NPC10" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(424, -4786)
+on_fire = true
+
+[node name="NPC11" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(-291, -5022)
+mobile = true
+
+[node name="NPC12" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(855, -5883)
+mobile = true
+
+[node name="NPC13" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(742, -4605)
+on_fire = true
+mobile = true
+
+[node name="L1_NPCs" type="Node2D" parent="."]
+
+[node name="NPC" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(400, 885)
+on_fire = true
+
+[node name="NPC2" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(487, 728)
+on_fire = true
+
+[node name="NPC3" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(86, 1327)
+
+[node name="NPC4" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(-86, 376)
+on_fire = true
+
+[node name="NPC5" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(501, 329)
+
+[node name="NPC6" parent="L1_NPCs" instance=ExtResource("9_sjfi6")]
+position = Vector2(432, 1032)
+
+[node name="NPC" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(-728, -5743)
+on_fire = true
+
+[node name="NPC2" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(-796, -5747)
+
+[node name="NPC3" parent="." instance=ExtResource("9_sjfi6")]
+position = Vector2(816, -4646)
+on_fire = true
+mobile = true
