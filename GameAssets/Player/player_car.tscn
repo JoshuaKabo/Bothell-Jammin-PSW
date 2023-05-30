@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://bhvywqli0xpt"]
 
-[ext_resource type="Texture2D" uid="uid://b3fbjpiv4j0lk" path="res://GameAssets/Player/sprites/car.png" id="1_3pfup"]
 [ext_resource type="Script" path="res://GameAssets/Player/player_car.gd" id="1_w4sd8"]
 [ext_resource type="AudioStream" uid="uid://b7h31o54h8kkl" path="res://GameAssets/Sounds/recordings_edited/carstart.ogg" id="2_2a7iw"]
-[ext_resource type="Texture2D" uid="uid://cy514vf7tu5qc" path="res://GameAssets/Player/sprites/gun.png" id="3_fdbmc"]
 [ext_resource type="Script" path="res://GameAssets/Player/Gun.gd" id="3_sfxyj"]
 [ext_resource type="AudioStream" uid="uid://c1mc8dmiivfs" path="res://GameAssets/Sounds/recordings_edited/carloop.ogg" id="3_un60l"]
 [ext_resource type="AudioStream" uid="uid://cf3lefg8oirtq" path="res://GameAssets/Sounds/recordings_edited/Guninit.wav" id="4_i6ixc"]
 [ext_resource type="AudioStream" uid="uid://dnwrfgkhnln74" path="res://GameAssets/Sounds/recordings_edited/Brake.ogg" id="4_y0rfo"]
 [ext_resource type="AudioStream" uid="uid://es5ebeqnd4c" path="res://GameAssets/Sounds/recordings_edited/gunloop.wav" id="5_efsci"]
+[ext_resource type="Texture2D" uid="uid://1ej1r3jpyqal" path="res://GameAssets/Player/sprites/car2.png" id="5_s2jo2"]
 [ext_resource type="AudioStream" uid="uid://dh0tllkmrwmrg" path="res://GameAssets/Sounds/recordings_edited/ceasefire_short.ogg" id="6_uacej"]
+[ext_resource type="Texture2D" uid="uid://0qwf1n18oahb" path="res://GameAssets/Player/sprites/gun1.png" id="10_xl8we"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_01qtr"]
 radius = 30.0
@@ -30,7 +30,8 @@ shape = SubResource("CapsuleShape2D_01qtr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
-texture = ExtResource("1_3pfup")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_s2jo2")
 
 [node name="Gun" type="Node2D" parent="."]
 position = Vector2(-38, 0)
@@ -39,19 +40,20 @@ sound_start_fire = ExtResource("4_i6ixc")
 sound_fire_loop = ExtResource("5_efsci")
 sound_cease_fire = ExtResource("6_uacej")
 
-[node name="Sprite2D" type="Sprite2D" parent="Gun"]
-position = Vector2(15, -0.373)
-rotation = 1.5708
-texture = ExtResource("3_fdbmc")
-
 [node name="firepoint" type="Node2D" parent="Gun"]
-position = Vector2(39, 0)
+position = Vector2(33, 0)
 
 [node name="firetimer" type="Timer" parent="Gun"]
 wait_time = 0.1
 one_shot = true
 
 [node name="GunAudio" type="AudioStreamPlayer2D" parent="Gun"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Gun"]
+position = Vector2(10.5, 0)
+rotation = 1.5708
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("10_xl8we")
 
 [node name="CarAudio" type="AudioStreamPlayer2D" parent="."]
 
