@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=22 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="PackedScene" uid="uid://cdsrl1kdut3ey" path="res://GameAssets/TileMap/boundary_tiles.tscn" id="1_ra2yv"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cd4pbsugdnxqy" path="res://npc.tscn" id="9_sjfi6"]
 [ext_resource type="PackedScene" uid="uid://bpnr3rl81n6js" path="res://GameAssets/l_manager.tscn" id="10_e05kv"]
 [ext_resource type="PackedScene" uid="uid://dieysi6ecvml3" path="res://boss.tscn" id="11_3c7db"]
+[ext_resource type="AudioStream" uid="uid://bpv184mr4vulv" path="res://GameAssets/Sounds/Piano/pianowin.wav" id="13_180kt"]
+[ext_resource type="AudioStream" uid="uid://c3p115ry53mdv" path="res://GameAssets/Sounds/recordings_edited/failsound.ogg" id="14_bk3bn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jjquw"]
 font_size = 40
@@ -175,9 +177,8 @@ sources/0 = SubResource("TileSetAtlasSource_kuyow")
 
 [node name="Player" parent="." instance=ExtResource("1_bbhq1")]
 z_index = 100
-position = Vector2(496, 835)
+position = Vector2(237, 1610)
 rotation = -1.5708
-collision_layer = 10
 
 [node name="audio_ambient" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_8o8pc")
@@ -186,8 +187,10 @@ autoplay = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" parent="CanvasLayer" instance=ExtResource("8_57rx7")]
+visible = false
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 796.0
 offset_right = 943.0
 offset_bottom = 58.0
@@ -400,4 +403,15 @@ texture = ExtResource("9_lnech")
 [node name="Boss" parent="." instance=ExtResource("11_3c7db")]
 position = Vector2(-161, -9473)
 
-[node name="l_manager" parent="." instance=ExtResource("10_e05kv")]
+[node name="l_manager" parent="." node_paths=PackedStringArray("win_text", "lose_text", "end_text", "lose_fire_1", "lose_fire_2", "lose_fire_3") instance=ExtResource("10_e05kv")]
+win_text = NodePath("../CanvasLayer/SAVED")
+lose_text = NodePath("../CanvasLayer/Burn")
+end_text = NodePath("../CanvasLayer/EndText")
+lose_fire_1 = NodePath("../l1/L1_Flames")
+lose_fire_2 = NodePath("../l2/L2_Flames")
+lose_fire_3 = NodePath("../l3/L3_Flames")
+points_to_win_1 = 3
+points_to_win_2 = 8
+points_to_win_3 = 9
+win = ExtResource("13_180kt")
+bad = ExtResource("14_bk3bn")

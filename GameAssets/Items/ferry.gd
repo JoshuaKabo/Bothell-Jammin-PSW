@@ -63,6 +63,7 @@ func retrieve_player():
 func _on_area_2d_body_entered(body:Node2D):
 	# we know that the body is a player because of the collision mask
 	if objective:
+		get_tree().get_root().get_child(0).find_child("l_manager").present_to_player()
 		initial_pos = get_global_position()
 		player_car = body
 		retrieve_player()
