@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd4pbsugdnxqy"]
+[gd_scene load_steps=8 format=3 uid="uid://cd4pbsugdnxqy"]
 
 [ext_resource type="Script" path="res://GameAssets/npc.gd" id="1_6a1ya"]
 [ext_resource type="Texture2D" uid="uid://ch0fdwrfuxpng" path="res://GameAssets/NPC/sprites/walk_npc.png" id="2_amwdb"]
 [ext_resource type="Texture2D" uid="uid://0k3g58acd6ku" path="res://GameAssets/NPC/sprites/sit_npc.png" id="3_0bqph"]
 [ext_resource type="Texture2D" uid="uid://dxj2mgriu4bu4" path="res://GameAssets/NPC/sprites/flame.png" id="4_6wf3g"]
 [ext_resource type="Script" path="res://wander_controller.gd" id="5_mlhg5"]
+[ext_resource type="AudioStream" uid="uid://bs8hiqbgjf12n" path="res://GameAssets/Sounds/recordings_edited/extinguishsoud.ogg" id="6_w77x6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bo8et"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_egdmk"]
+radius = 127.122
 
 [node name="NPC" type="CharacterBody2D"]
 scale = Vector2(0.25, 0.25)
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("1_6a1ya")
 mobile_sprite = ExtResource("2_amwdb")
 stationary_sprite = ExtResource("3_0bqph")
@@ -17,16 +21,17 @@ stationary_sprite = ExtResource("3_0bqph")
 [node name="charactersprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_amwdb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_bo8et")
-
 [node name="flamesprite" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("4_6wf3g")
 
 [node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(20, -4)
+shape = SubResource("CircleShape2D_egdmk")
 
 [node name="wander_controller" type="Node2D" parent="."]
 script = ExtResource("5_mlhg5")
@@ -34,4 +39,9 @@ script = ExtResource("5_mlhg5")
 [node name="wander_timer" type="Timer" parent="wander_controller"]
 one_shot = true
 
+[node name="sound_maker" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_w77x6")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="wander_controller/wander_timer" to="wander_controller" method="_on_wander_timer_timeout"]

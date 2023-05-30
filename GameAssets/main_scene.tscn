@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bkbbmh46oc1ie"]
+[gd_scene load_steps=20 format=3 uid="uid://bkbbmh46oc1ie"]
 
 [ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="1_bbhq1"]
 [ext_resource type="PackedScene" uid="uid://cdsrl1kdut3ey" path="res://GameAssets/TileMap/boundary_tiles.tscn" id="1_ra2yv"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bmcytrkeaq6s0" path="res://GameAssets/levelmanager.tscn" id="8_57rx7"]
 [ext_resource type="Texture2D" uid="uid://dxj2mgriu4bu4" path="res://GameAssets/NPC/sprites/flame.png" id="9_lnech"]
 [ext_resource type="PackedScene" uid="uid://cd4pbsugdnxqy" path="res://npc.tscn" id="9_sjfi6"]
+[ext_resource type="PackedScene" uid="uid://bpnr3rl81n6js" path="res://GameAssets/l_manager.tscn" id="10_e05kv"]
+[ext_resource type="PackedScene" uid="uid://dieysi6ecvml3" path="res://boss.tscn" id="11_3c7db"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jjquw"]
 font_size = 40
@@ -17,7 +19,21 @@ font_size = 40
 [sub_resource type="LabelSettings" id="LabelSettings_wsa6d"]
 font_size = 80
 outline_size = 20
-outline_color = Color(1, 0.333333, 0, 1)
+outline_color = Color(1, 0.364706, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_e8r5d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f41ya"]
+font = SubResource("SystemFont_e8r5d")
+font_size = 80
+outline_size = 40
+outline_color = Color(1, 0, 0.807843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s3gbi"]
+font = SubResource("SystemFont_e8r5d")
+font_size = 80
+outline_size = 40
+outline_color = Color(0, 1, 0.231373, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kuyow"]
 texture = ExtResource("2_bdr2c")
@@ -159,8 +175,9 @@ sources/0 = SubResource("TileSetAtlasSource_kuyow")
 
 [node name="Player" parent="." instance=ExtResource("1_bbhq1")]
 z_index = 100
-position = Vector2(80, -4247)
+position = Vector2(496, 835)
 rotation = -1.5708
+collision_layer = 10
 
 [node name="audio_ambient" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_8o8pc")
@@ -186,6 +203,26 @@ offset_right = 1052.0
 offset_bottom = 373.0
 text = "THANKS FOR PLAYING <3"
 label_settings = SubResource("LabelSettings_wsa6d")
+horizontal_alignment = 1
+
+[node name="Burn" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 87.0
+offset_top = 260.0
+offset_right = 1052.0
+offset_bottom = 373.0
+text = "YOU LET PEOPLE BURN"
+label_settings = SubResource("LabelSettings_f41ya")
+horizontal_alignment = 1
+
+[node name="SAVED" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 87.0
+offset_top = 260.0
+offset_right = 1052.0
+offset_bottom = 373.0
+text = "YOU SAVED EVERYONE"
+label_settings = SubResource("LabelSettings_s3gbi")
 horizontal_alignment = 1
 
 [node name="l1" type="Node" parent="."]
@@ -359,3 +396,8 @@ visible = false
 position = Vector2(-209, -9708)
 scale = Vector2(10, 10)
 texture = ExtResource("9_lnech")
+
+[node name="Boss" parent="." instance=ExtResource("11_3c7db")]
+position = Vector2(-161, -9473)
+
+[node name="l_manager" parent="." instance=ExtResource("10_e05kv")]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dieysi6ecvml3"]
+
+[ext_resource type="Script" path="res://GameAssets/npc.gd" id="1_1idf8"]
+[ext_resource type="Texture2D" uid="uid://ch0fdwrfuxpng" path="res://GameAssets/NPC/sprites/walk_npc.png" id="2_0rfhr"]
+[ext_resource type="Texture2D" uid="uid://0k3g58acd6ku" path="res://GameAssets/NPC/sprites/sit_npc.png" id="3_8rasp"]
+[ext_resource type="Texture2D" uid="uid://dxj2mgriu4bu4" path="res://GameAssets/NPC/sprites/flame.png" id="4_6j3by"]
+[ext_resource type="Script" path="res://wander_controller.gd" id="5_g2okx"]
+[ext_resource type="AudioStream" uid="uid://bs8hiqbgjf12n" path="res://GameAssets/Sounds/recordings_edited/extinguishsoud.ogg" id="6_ukho5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egdmk"]
+radius = 127.122
+
+[node name="Boss" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_1idf8")
+on_fire = true
+mobile = true
+is_boss = true
+mobile_sprite = ExtResource("2_0rfhr")
+stationary_sprite = ExtResource("3_8rasp")
+
+[node name="charactersprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_0rfhr")
+
+[node name="flamesprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_6j3by")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(20, -4)
+shape = SubResource("CircleShape2D_egdmk")
+
+[node name="wander_controller" type="Node2D" parent="."]
+script = ExtResource("5_g2okx")
+
+[node name="wander_timer" type="Timer" parent="wander_controller"]
+one_shot = true
+
+[node name="sound_maker" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ukho5")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="wander_controller/wander_timer" to="wander_controller" method="_on_wander_timer_timeout"]

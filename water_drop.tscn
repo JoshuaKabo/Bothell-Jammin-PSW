@@ -8,8 +8,8 @@ radius = 8.0
 
 [node name="water_drop" type="CharacterBody2D"]
 z_index = 200
-collision_layer = 4
-collision_mask = 4
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_l3fti")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,7 +19,6 @@ texture = ExtResource("2_4385l")
 shape = SubResource("CircleShape2D_vbdeh")
 
 [node name="despawn_timer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

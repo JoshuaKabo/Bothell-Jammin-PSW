@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dc00to4kt2xtp"]
+[gd_scene load_steps=3 format=3 uid="uid://dc00to4kt2xtp"]
 
 [ext_resource type="PackedScene" uid="uid://cd4pbsugdnxqy" path="res://npc.tscn" id="1_28dce"]
+[ext_resource type="PackedScene" uid="uid://bhvywqli0xpt" path="res://GameAssets/Player/player_car.tscn" id="3_xitfd"]
 
 [node name="testscene" type="Node2D"]
 
 [node name="NPC" parent="." instance=ExtResource("1_28dce")]
-mobile = true
+
+[node name="Player" parent="." instance=ExtResource("3_xitfd")]
+position = Vector2(-95, 0)
+collision_layer = 10
