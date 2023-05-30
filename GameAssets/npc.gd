@@ -2,10 +2,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const FLAME_SPEED = 450.0
-# const ACCELERATION
-
-@export var wander_range = 100
-
+const ACCELERATION = 300
+const FLAME_ACCELERATION = 400
 
 
 @export var on_fire: bool = false
@@ -16,13 +14,13 @@ const FLAME_SPEED = 450.0
 
 var flamesprite
 var character_sprite
-# @export var character_sprite: Sprite2D
+var wander_controller
 
-# run might be too much work for 
-# enum { WANDER, RUN }
+@export var wander_target_jimmy = 4
 
 
 func _ready():
+	wander_controller = get_node("wander_controller")
 	flamesprite = get_node("flamesprite")
 	character_sprite = get_node("charactersprite")
 
@@ -36,6 +34,8 @@ func _ready():
 	else:
 		character_sprite.set_texture(stationary_sprite)
 
+	wander_controller.start_wander_timer(randf_range(0.5, 4.0))
+
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -47,49 +47,25 @@ func set_fire_status(flame_state):
 
 
 
-# func accelerate_towards_point(point, delta):
-# 	var direction = global_position.direction_to(point)
-# 	# move towards player, vector, amount
-# 	velocity = velocity.move_toward(direction * MAXSPEED, ACCELERATION * delta)
-# 	sprite.flip_h = velocity.x < 0
+func accelerate_towards_point(point, speed, acceleration, delta):
+	var direction = (point - global_position).normalized()
+
+	# move towards player, vector, amount
+	velocity = velocity.move_toward(direction * speed, acceleration * delta)
+	move_and_slide()
 
 
-# func _physics_process(_delta):
-# 	var speed = 0
-# 	# speed = on_fire ? FLAME_SPEED : SPEED
-# 	# if on_fire:
-# 	# 	speed = 
+func _physics_process(delta):
+	var applied_speed = SPEED
+	var applied_accel = ACCELERATION
 
-# 	if mobile:
-# 		accelerate_towards_point(wander_controller.target_pos, delta)
+	if on_fire:
+		applied_speed = FLAME_SPEED	
+		applied_accel = FLAME_ACCELERATION
 
-# 		# don't readjust a whole bunch when you hit the target (if set to 0, they shimmey)
-# 		if global_position.distance_to(wander_controller.target_pos) <= wander_target_adjust:
-# 			check_for_new_state()
-		# wander within wander_range
-		# var direction = rand_range(-1, 1)
-		# if direction == 0:
-		# 	direction = 1
-		# var velocity = Vector2(direction * SPEED, 0)
-		# move_and_slide(velocity)
+	if mobile:
+		accelerate_towards_point(wander_controller.get_target_pos(), applied_speed, applied_accel, delta)
 
-
-# func _physics_process(delta):
-# 	# Add the gravity.
-# 	if not is_on_floor():
-# 		velocity.y += gravity * delta
-
-# 	# Handle Jump.
-# 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-# 		velocity.y = JUMP_VELOCITY
-
-# 	# Get the input direction and handle the movement/deceleration.
-# 	# As good practice, you should replace UI actions with custom gameplay actions.
-# 	var direction = Input.get_axis("ui_left", "ui_right")
-# 	if direction:
-# 		velocity.x = direction * SPEED
-# 	else:
-# 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
-# 	move_and_slide()
-	
+		# don't readjust a whole bunch when you hit the target (if set to 0, they shimmey)
+		if global_position.distance_to(wander_controller.get_target_pos()) <= wander_target_jimmy:
+			wander_controller.start_wander_timer(randf_range(0.5, 4.0))

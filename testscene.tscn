@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc00to4kt2xtp"]
+
+[ext_resource type="PackedScene" uid="uid://cd4pbsugdnxqy" path="res://npc.tscn" id="1_28dce"]
+
+[node name="testscene" type="Node2D"]
+
+[node name="NPC" parent="." instance=ExtResource("1_28dce")]
+mobile = true

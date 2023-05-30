@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd4pbsugdnxqy"]
+[gd_scene load_steps=7 format=3 uid="uid://cd4pbsugdnxqy"]
 
 [ext_resource type="Script" path="res://GameAssets/npc.gd" id="1_6a1ya"]
 [ext_resource type="Texture2D" uid="uid://ch0fdwrfuxpng" path="res://GameAssets/NPC/sprites/walk_npc.png" id="2_amwdb"]
 [ext_resource type="Texture2D" uid="uid://0k3g58acd6ku" path="res://GameAssets/NPC/sprites/sit_npc.png" id="3_0bqph"]
 [ext_resource type="Texture2D" uid="uid://dxj2mgriu4bu4" path="res://GameAssets/NPC/sprites/flame.png" id="4_6wf3g"]
+[ext_resource type="Script" path="res://wander_controller.gd" id="5_mlhg5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bo8et"]
 
@@ -26,3 +27,11 @@ texture = ExtResource("4_6wf3g")
 [node name="hurtbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+
+[node name="wander_controller" type="Node2D" parent="."]
+script = ExtResource("5_mlhg5")
+
+[node name="wander_timer" type="Timer" parent="wander_controller"]
+one_shot = true
+
+[connection signal="timeout" from="wander_controller/wander_timer" to="wander_controller" method="_on_wander_timer_timeout"]

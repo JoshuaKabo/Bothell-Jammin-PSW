@@ -7,8 +7,9 @@
 radius = 8.0
 
 [node name="water_drop" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+z_index = 200
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_l3fti")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

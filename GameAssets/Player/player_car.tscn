@@ -22,7 +22,7 @@ sound_start_car = ExtResource("2_2a7iw")
 sound_car_loop = ExtResource("3_un60l")
 sound_car_brake = ExtResource("4_y0rfo")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="player_cam" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

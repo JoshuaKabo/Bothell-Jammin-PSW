@@ -47,7 +47,11 @@ var on_ferry = false
 var reverse_volume_db = -6.0
 
 
+var player_cam: Camera2D
+
 func _ready():
+	player_cam = get_node("player_cam")
+	player_cam.make_current()
 	car_audio = get_node("CarAudio")
 	car_audio.volume_db = car_volume_db
 
@@ -110,7 +114,10 @@ func get_input():
 	if Input.is_action_pressed("brake"):
 		acceleration = transform.x * braking
 
-
+func reclaim_cam():
+	player_cam.make_current()
+	# 
+	pass
 
 func calculate_steering(delta):
 	# offset the rear and front wheels from the center of the car

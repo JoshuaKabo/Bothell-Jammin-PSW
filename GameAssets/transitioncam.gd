@@ -1,6 +1,8 @@
 extends Camera2D
 
 
+@export var player_car: Node2D
+
 @export var initial_tracker: Node2D
 @export var goal_pos: Node2D
 @export var initialzoom: float = 1.0
@@ -25,6 +27,7 @@ var active = false
 # 	global_position = initial_tracker.get_global_position()
 
 func handle_transition():
+	make_current()
 	active = true
 	zoom_timer.start(zoomTime)
 
@@ -62,6 +65,7 @@ func _on_zoom_timer_timeout():
 		
 	# begin
 	elif(zoomphase == 2):
+		player_car.reclaim_cam()
 		active = false
 		zoomphase = -1
 
